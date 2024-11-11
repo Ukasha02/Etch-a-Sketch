@@ -1,3 +1,6 @@
+let eraserMode = false;
+
+// Function to create a grid
 function createGrid(size) {
     const container = document.querySelector('.container');
     container.innerHTML = ''; // Clear existing grid
@@ -15,21 +18,27 @@ function createGrid(size) {
         div.style.border = '1px solid gray'; // Optional: For better visibility
         div.style.boxSizing = 'border-box';
         div.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // Initial color set to white
-        
-        div.addEventListener('mouseenter', () => {
-            if (!div.dataset.darkness) {
-                div.dataset.darkness = 1.0; // Initial opacity value
-            }
-            
-            // Generate a random RGB color
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-            // Reduce opacity by 0.1 each interaction until fully dark
-            div.dataset.darkness -= 0.1;
-            div.style.opacity = div.dataset.darkness;
+        // Add hover effect to change background color with random RGB and darken progressively
+        div.addEventListener('mouseenter', () => {
+            if (eraserMode) {
+                div.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // Erase color
+                div.style.opacity = 1.0; // Reset opacity
+            } else {
+                if (!div.dataset.darkness) {
+                    div.dataset.darkness = 1.0; // Initial opacity value
+                }
+                
+                // Generate a random RGB color
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+                // Reduce opacity by 0.1 each interaction until fully dark
+                div.dataset.darkness -= 0.1;
+                div.style.opacity = div.dataset.darkness;
+            }
         });
 
         container.appendChild(div);
@@ -43,10 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Button functionality to create a new grid
 document.getElementById('newGridButton').addEventListener('click', () => {
-    let size = parseInt(prompt("Enter the number of squares per side for the new grid (max 100):"));
+    const sizeInput = document.getElementById('gridSizeInput').value;
+    let size = parseInt(sizeInput);
     if (size && size > 0 && size <= 100) {
         createGrid(size);
     } else {
         alert("Please enter a valid number between 1 and 100.");
     }
+});
+
+// Button functionality to toggle eraser mode
+document.getElementById('eraserButton').addEventListener('click', () => {
+    eraserMode = !eraserMode;
+    document.getElementById('eraserButton').textContent = eraserMode ? 'Eraser Mode: ON' : 'Eraser Mode: OFF';
 });

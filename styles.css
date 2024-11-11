@@ -1,0 +1,43 @@
+h1 {
+    text-align: center;
+    color: blue;
+}
+
+body{
+    background-color: #FFFACD;
+    font-family: Arial, sans-serif;
+}
+
+
+#gridSizeInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    outline: none;
+    width: 200px;
+}
+
+#newGridButton,
+#eraserButton {
+    background-color: #4CAF50; /* Default green color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#eraserButton {
+    background-color: #f44336; /* Red color for eraser */
+}
+
+#newGridButton:hover,
+#eraserButton:hover,
+#gridSizeInput:focus {
+    border-color: #888; /* Change border color on focus */
+}
+
